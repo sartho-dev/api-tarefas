@@ -9,9 +9,10 @@ export class TaskController {
     const user_ident = req.session.userId;
 
     if (!user_ident) {
-      return res.status(401).json({
+      res.status(401).json({
         Message: "Usuário não logado",
       });
+      return;
     }
     const dataTarefa = parseISO(req.body.data);
     try {
@@ -25,26 +26,30 @@ export class TaskController {
 
       await create(tarefa);
 
-      return res.status(200).json({
+      res.status(200).json({
         Message: "A tarefa foi criada",
       });
+      return;
     } catch (error) {
-      return res.status(500).json({
+      res.status(500).json({
         Message: "Erro. A tarefa nao foi criada",
       });
+      return;
     }
   }
   async deleteTask(req: Request, res: Response) {
     try {
       await deleteTask(req.body.id);
 
-      return res.status(500).json({
+      res.status(500).json({
         Message: "A deleção funcionou.",
       });
+      return;
     } catch (error) {
-      return res.status(200).json({
+      res.status(200).json({
         Message: "Erro. A deleção não funcionou",
       });
+      return;
     }
   }
 }

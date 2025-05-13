@@ -26,7 +26,7 @@ class UserController {
 
   async deleteUser(req: Request, res: Response) {
     try {
-      await deleteUserService(req.body.nome);
+      await deleteUserService(req.body.id);
 
       res.json({
         Resposta: "Deleção feita com sucesso",

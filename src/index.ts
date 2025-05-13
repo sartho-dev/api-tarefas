@@ -3,6 +3,7 @@ import { router } from "./routes/router";
 
 import session from "express-session";
 
+//express() é uma função que retorna um objeto
 const app = express();
 
 app.use(

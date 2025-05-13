@@ -1,5 +1,5 @@
 import { db } from "../../config/connect";
 
-export async function deleteUserService(nome: string) {
-  await db.query("delete from usuario where nome = $1", [nome]);
+export async function deleteUserService(id: number) {
+  await db.query("delete from usuario where id = $1", [id]);
 }
