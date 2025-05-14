@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { create } from "../service/user/create-user";
 import { deleteUserService } from "../service/user/delete-user";
-import { loginUser } from "../service/user/login-user";
+import { getUserByEmail } from "../service/user/login-user";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 class UserController {
   async index(req: Request, res: Response) {
@@ -12,41 +14,65 @@ class UserController {
 
   async createUser(req: Request, res: Response) {
     try {
-      await create(req.body.nome, req.body.email, req.body.senha);
+      const senha = req.body.senha;
 
-      res.json({
+      const hash_senha = await bcrypt.hash(senha, 10);
+
+      const email = req.body.email;
+
+      const emailExists = await getUserByEmail(email);
+
+      if (emailExists) {
+        res.status(409).json({
+          Message: "Email já existe",
+        });
+        return;
+      }
+
+      await create(req.body.nome, req.body.email, hash_senha);
+
+      res.status(201).json({
         Message: "Usuario criado com sucesso",
       });
     } catch (error) {
-      res.json({
+      res.status(400).json({
         Erro: "Não funcionou a criação",
-      });
-    }
-  }
-
-  async deleteUser(req: Request, res: Response) {
-    try {
-      await deleteUserService(req.body.id);
-
-      res.json({
-        Resposta: "Deleção feita com sucesso",
-      });
-    } catch (error) {
-      res.json({
-        Erro: "Nao funcionou a deleção",
       });
     }
   }
 
   async loginUser(req: Request, res: Response) {
     try {
-      const usuario = await loginUser(req.body.email, req.body.senha);
+      const email = req.body.email;
 
-      req.session.userId = usuario.id
+      const user = await getUserByEmail(email);
 
+      if (!user) {
+        throw new Error("Email ou senha invalidos.");
+      }
 
-      res.json({
+      const senha = req.body.senha;
+
+      const verificaSenha = await bcrypt.compare(senha, user.senha);
+
+      if (!verificaSenha) {
+        throw new Error("Email ou senha invalidos.");
+      }
+
+      const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
+        expiresIn: "8h",
+      });
+
+      console.log(token);
+
+      res.status(200).json({
         Message: "Login deu certo",
+        token,
+        user: {
+          id: user.id,
+          nome: user.nome,
+          email: user.email,
+        },
       });
     } catch (error) {
       res.status(401).json({

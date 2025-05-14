@@ -7,14 +7,6 @@ import session from "express-session";
 //express() é uma função que retorna um objeto
 const app = express();
 
-app.use(
-  session({
-    secret: process.env.SECRET_SESSION,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
 app.use(express.json());
 
 app.use(router);

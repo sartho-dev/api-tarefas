@@ -3,17 +3,8 @@ import { create } from "../service/task/create.task";
 import { deleteTask } from "../service/task/delete.task";
 import { Tarefa } from "../model/Tarefa";
 
-
 export class TaskController {
   async createTask(req: Request, res: Response) {
-    const user_ident = req.session.userId;
-
-    if (!user_ident) {
-      res.status(401).json({
-        Message: "Usuário não logado",
-      });
-      return;
-    }
     const dataTarefa = new Date(req.body.data_tarefa);
     try {
       const tarefa = new Tarefa(
@@ -21,7 +12,7 @@ export class TaskController {
         req.body.descricao,
         dataTarefa,
         req.body.prioridade,
-        user_ident!
+        req.body.usuario_id
       );
 
       await create(tarefa);

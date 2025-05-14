@@ -1,15 +1,27 @@
 import { db } from "../../config/connect";
 
-export async function loginUser(email: string, senha: string) {
+export async function getUserByEmail(email: string) {
   const result = await db.query("select * from usuario where email = $1", [
     email,
   ]);
 
   const usuario = result.rows[0];
 
-  if (usuario.senha === senha) {
+  if (usuario) {
     return usuario;
   } else {
-    throw new Error("Senha incorreta");
+    return false;
+  }
+}
+
+export async function getUserById(id: number) {
+  const result = await db.query("select * from usuario where id = $1", [id]);
+
+  const usuario = result.rows[0];
+
+  if (usuario) {
+    return usuario;
+  } else {
+    return false;
   }
 }
