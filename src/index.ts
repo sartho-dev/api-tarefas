@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
   session({
-    secret: "algo",
+    secret: "10349203421234",
     resave: false,
     saveUninitialized: false,
   })

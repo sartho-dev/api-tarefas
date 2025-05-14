@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { create } from "../service/task/create.task";
 import { deleteTask } from "../service/task/delete.task";
 import { Tarefa } from "../model/Tarefa";
-import { parseISO } from "date-fns";
+
 
 export class TaskController {
   async createTask(req: Request, res: Response) {
@@ -14,7 +14,7 @@ export class TaskController {
       });
       return;
     }
-    const dataTarefa = parseISO(req.body.data);
+    const dataTarefa = new Date(req.body.data_tarefa);
     try {
       const tarefa = new Tarefa(
         req.body.titulo,
@@ -32,7 +32,7 @@ export class TaskController {
       return;
     } catch (error) {
       res.status(500).json({
-        Message: "Erro. A tarefa nao foi criada",
+        Message: `Erro ${error} ${dataTarefa} . A tarefa nao foi criada`,
       });
       return;
     }
@@ -46,7 +46,7 @@ export class TaskController {
       });
       return;
     } catch (error) {
-      res.status(200).json({
+      res.status(401).json({
         Message: "Erro. A deleção não funcionou",
       });
       return;

@@ -42,13 +42,14 @@ class UserController {
     try {
       const usuario = await loginUser(req.body.email, req.body.senha);
 
-      req.session.userId = usuario.id;
+      req.session.userId = usuario.id
+
 
       res.json({
         Message: "Login deu certo",
       });
     } catch (error) {
-      res.json({
+      res.status(401).json({
         Erro: "Erro. Login nao deu certo",
       });
     }

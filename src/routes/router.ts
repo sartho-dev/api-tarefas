@@ -17,4 +17,7 @@ router.post("/create/task", taskController.createTask);
 router.delete("/delete/user", userController.deleteUser);
 router.delete("/delete/task", taskController.deleteTask);
 
+//Rota que atualiza
+
+
 export { router };

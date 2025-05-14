@@ -7,3 +7,5 @@ export async function create(nome: string, email: string, senha: string) {
     [nome, email, senha]
   );
 }
+
+
