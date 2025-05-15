@@ -6,7 +6,7 @@ import session from "express-session";
 
 //express() é uma função que retorna um objeto
 const app = express();
-
+//Comentario
 app.use(express.json());
 
 app.use(router);
