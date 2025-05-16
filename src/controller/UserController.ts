@@ -1,18 +1,17 @@
 import { Request, Response } from "express";
 import { create } from "../service/user/create-user";
-import { deleteUserService } from "../service/user/delete-user";
 import { getUserByEmail } from "../service/user/login-user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-class UserController {
-  async index(req: Request, res: Response) {
+export class UserController {
+  static async index(req: Request, res: Response) {
     res.json({
       Hello: "Alo do back-end, ta tudo bem? :) ",
     });
   }
 
-  async createUser(req: Request, res: Response) {
+  static async createUser(req: Request, res: Response) {
     try {
       const senha = req.body.senha;
 
@@ -41,7 +40,7 @@ class UserController {
     }
   }
 
-  async loginUser(req: Request, res: Response) {
+  static async loginUser(req: Request, res: Response) {
     try {
       const email = req.body.email;
 
@@ -82,6 +81,3 @@ class UserController {
   }
 }
 
-const userController = new UserController();
-
-export { userController };

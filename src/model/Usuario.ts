@@ -1,3 +1,4 @@
+import { ListaTarefa } from "./ListaTarefa";
 import { Tarefa } from "./Tarefa";
 
 export class Usuario {
@@ -6,6 +7,6 @@ export class Usuario {
     public nome: string,
     public email: string,
     public senha: string,
-    public tarefas: Tarefa[] = []
+    public lista_tarefas: ListaTarefa[] = []
   ) {}
 }

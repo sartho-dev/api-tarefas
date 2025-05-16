@@ -4,7 +4,8 @@ export class Tarefa {
     public descricao: string,
     public data_tarefa: Date,
     public prioridade: string,
-    public usuario_id: number,
-    public id?: number,
+    public concluida: boolean,
+    public lista_tarefa_id?: number,
+    public id?: number
   ) {}
 }

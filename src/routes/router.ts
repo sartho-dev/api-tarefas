@@ -1,22 +1,33 @@
 import { Router } from "express";
-import { userController } from "../controller/UserController";
-import { taskController } from "../controller/TaskController";
-import { autenticarToken } from "../middleware/authmiddleware";
+import { UserController } from "../controller/UserController";
+import { TaskController } from "../controller/TaskController";
+import { autenticarToken } from "../middleware/authMiddleware";
+import { ListTaskController } from "../controller/ListTaskController";
 
 const router = Router();
 
-router.get("/", userController.index);
+//Rotas de usuario
+router.get("/", UserController.index);
+router.post("/login", UserController.loginUser);
+router.post("/create/user", UserController.createUser);
 
-//Rota de login
-router.post("/login", userController.loginUser);
+//Rotas de tarefa
+router.post("/create/task", autenticarToken, TaskController.createTask);
 
-//Rotas que criam
-router.post("/create/user", userController.createUser);
-router.post("/create/task", autenticarToken, taskController.createTask);
+router.delete("/delete/all-task", autenticarToken,TaskController.deleteAllTask);
 
-//Rotas que deletam
-router.delete("/delete/task", taskController.deleteTask);
+router.delete("/delete/one/task", autenticarToken, TaskController.deleteTask);
 
-//Rota que atualiza
+router.post("/create/list/task", autenticarToken, ListTaskController.createListTask);
+
+router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
+
+router.get("/select/task", autenticarToken, TaskController.listAllTask);
+
+
+/*TODO: Falar com o front.
+router.put("/update/task", autenticarToken, taskController.updateTask);
+*/
+
 
 export { router };
