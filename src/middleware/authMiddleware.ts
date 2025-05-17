@@ -6,6 +6,8 @@ type JwtPayload = {
   id: number;
 };
 
+
+
 export async function autenticarToken(
   req: Request,
   res: Response,
@@ -33,5 +35,17 @@ export async function autenticarToken(
     return;
   }
 
+  if(!user.valido){
+    res.status(401).json({
+      Erro: "Erro de validação"
+    })
+    return
+  }
+
   next();
 }
+
+
+
+
+

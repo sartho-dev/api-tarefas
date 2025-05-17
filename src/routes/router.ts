@@ -3,6 +3,7 @@ import { UserController } from "../controller/UserController";
 import { TaskController } from "../controller/TaskController";
 import { autenticarToken } from "../middleware/authMiddleware";
 import { ListTaskController } from "../controller/ListTaskController";
+import { sendEmailController } from "../controller/MailerController";
 
 const router = Router();
 
@@ -24,6 +25,14 @@ router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
 
 router.get("/select/task", autenticarToken, TaskController.listAllTask);
 
+
+router.get("/valid/:code", UserController.validUser)
+
+/*
+router.get("/forgot/password", sendEmailController);
+
+/*
+router.get("/confirm/code/email",);
 
 /*TODO: Falar com o front.
 router.put("/update/task", autenticarToken, taskController.updateTask);

@@ -7,5 +7,11 @@ declare namespace NodeJS {
     DB_PASSWORD: string;
     SECRET_KEY: string;
     PORT_SERVER: number;
+    MAIL_HOST: string;
+    MAIL_PORT: number;
+    MAIL_USER: string;
+    MAIL_PASS: string;
+    VECTOR: string,
+    KEY: string
   }
 }

@@ -3,6 +3,10 @@ import { create } from "../service/user/create-user";
 import { getUserByEmail } from "../service/user/login-user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { generateCode } from "../service/user/generate-code";
+import { sendEmailUser, sendUrlUser } from "../service/nodemailer";
+import { descryptCode } from "../service/user/descript-email";
+import { validUserService } from "../service/user/valid-user";
 
 export class UserController {
   static async index(req: Request, res: Response) {
@@ -19,20 +23,17 @@ export class UserController {
 
       const email = req.body.email;
 
-      const emailExists = await getUserByEmail(email);
-
-      if (emailExists) {
-        res.status(409).json({
-          Message: "Email já existe",
-        });
-        return;
-      }
-
       await create(req.body.nome, req.body.email, hash_senha);
+
+      const url_usuario = req.protocol + "://"+ req.host + `/valid/${generateCode(email)}`
+
+      sendUrlUser(email, url_usuario);
 
       res.status(201).json({
         Message: "Usuario criado com sucesso",
+        Email: email,  
       });
+
     } catch (error) {
       res.status(400).json({
         Erro: "Não funcionou a criação",
@@ -79,5 +80,30 @@ export class UserController {
       });
     }
   }
+
+  static async validUser(req: Request, res: Response) {
+    const codigo = req.params.code
+    
+    const email = descryptCode(codigo)
+
+    try {
+
+      await validUserService(email)
+
+      res.status(200).json({
+        Message: "Usuario validado"
+      })
+
+    } catch (error) {
+      res.status(500).json({
+        Erro: "Usuário não encontrado"
+      })
+    }
+
+
+      
+  }
+  
+
 }
 
