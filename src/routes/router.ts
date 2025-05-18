@@ -3,7 +3,7 @@ import { UserController } from "../controller/UserController";
 import { TaskController } from "../controller/TaskController";
 import { autenticarToken } from "../middleware/authMiddleware";
 import { ListTaskController } from "../controller/ListTaskController";
-import { sendEmailController } from "../controller/MailerController";
+import { MailerController } from "../controller/MailerController";
 
 const router = Router();
 
@@ -15,28 +15,36 @@ router.post("/create/user", UserController.createUser);
 //Rotas de tarefa
 router.post("/create/task", autenticarToken, TaskController.createTask);
 
-router.delete("/delete/all-task", autenticarToken,TaskController.deleteAllTask);
+router.delete(
+  "/delete/all-task",
+  autenticarToken,
+  TaskController.deleteAllTask
+);
 
 router.delete("/delete/one/task", autenticarToken, TaskController.deleteTask);
 
-router.post("/create/list/task", autenticarToken, ListTaskController.createListTask);
+router.post(
+  "/create/list/task",
+  autenticarToken,
+  ListTaskController.createListTask
+);
 
 router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
 
 router.get("/select/task", autenticarToken, TaskController.listAllTask);
 
+//Valida usuario
+router.patch("/valid/:code", UserController.validUser);
 
-router.get("/valid/:code", UserController.validUser)
+//Valida codigo
+router.post("/forgot/password", MailerController.sendEmailController);
 
-/*
-router.get("/forgot/password", sendEmailController);
+router.post("/confirm/code/email", MailerController.confirmCode);
 
-/*
-router.get("/confirm/code/email",);
+router.post("/reset/password", MailerController.resetPassword);
 
 /*TODO: Falar com o front.
 router.put("/update/task", autenticarToken, taskController.updateTask);
 */
-
 
 export { router };

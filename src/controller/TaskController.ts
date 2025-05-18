@@ -1,6 +1,5 @@
 import { Response, Request } from "express";
 import { create } from "../service/task/create.task";
-
 import { Tarefa } from "../model/Tarefa";
 import { deleteAllTask } from "../service/task/delete-alltask";
 import { listTask } from "../service/task/select-task";

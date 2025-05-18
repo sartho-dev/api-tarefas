@@ -14,3 +14,18 @@ export function generateCode(value: string) {
     
     return aes.utils.hex.fromBytes(crypto);
 }
+
+export function generate4code() {
+
+    
+   const codigo = new Array<string>(4)
+
+
+
+    for (let index = 0; index < 4; index++) {
+        codigo[index] = Math.floor(Math.random() * 9).toString() 
+        
+    }
+    
+    return codigo.join("");
+}

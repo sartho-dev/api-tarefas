@@ -25,3 +25,14 @@ export async function getUserById(id: number) {
     return false;
   }
 }
+
+
+export async function getIdUserByEmail(email: string) {
+  const result = await db.query("select id from usuario where email = $1", [
+    email,
+  ]);
+
+  const id = result.rows[0].id as number;
+
+  return id ?? false;
+}

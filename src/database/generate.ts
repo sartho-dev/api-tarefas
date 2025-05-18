@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS public.usuario
     nome text COLLATE pg_catalog."default" NOT NULL,
     email text COLLATE pg_catalog."default" NOT NULL,
     senha text COLLATE pg_catalog."default" NOT NULL,
+    valido boolean DEFAULT false NOT NULL,
     CONSTRAINT usuario_pkey PRIMARY KEY (id),
     CONSTRAINT usuario_email_key UNIQUE (email)
 )
