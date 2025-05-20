@@ -16,7 +16,7 @@ router.post("/create/user", UserController.createUser);
 router.post("/create/task", autenticarToken, TaskController.createTask);
 
 router.delete(
-  "/delete/all-task",
+  "/delete/all/task",
   autenticarToken,
   TaskController.deleteAllTask
 );
@@ -31,7 +31,7 @@ router.post(
 
 router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
 
-router.get("/select/task", autenticarToken, TaskController.listAllTask);
+router.get("/select/all/task", autenticarToken, TaskController.listAllTask);
 
 //Valida usuario
 router.patch("/valid/:code", UserController.validUser);

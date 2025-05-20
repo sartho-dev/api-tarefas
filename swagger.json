@@ -1,0 +1,576 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de tarefas",
+    "description": "API tem como objetivo manipular tarefas de um usuário",
+    "contact": {
+      "email": "projetomegaufms@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8081",
+      "description": "Rota de teste"
+    }
+  ],
+  "paths": {
+    "/create/user": {
+      "post": {
+        "summary": "Cadastro de usuario",
+        "description": "Essa rota cria um usuário",
+        "tags": ["Usuario"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario criado com sucesso"
+          },
+          "400": {
+            "description": "Não funcionou a criação"
+          }
+        }
+      }
+    },
+    "/valid/user/{code}": {
+      "get": {
+        "summary": "Validação de usuário",
+        "description": "Essa rota valida o e-mail do usuário a partir de um código",
+        "tags": ["Usuario"],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "Código de verificação criptografado no link",
+            "schema": {
+              "type": "string",
+              "example": "ZWNob21hbGd1bUBnbWFpbC5jb20="
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário validado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": {
+                      "type": "string",
+                      "example": "Usuario validado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao validar o usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Erro": {
+                      "type": "string",
+                      "example": "Usuário não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/login": {
+      "post": {
+        "summary": "Login de usuário",
+        "description": "Essa rota faz o login do usuário e retorna um token JWT e os dados do usuário",
+        "tags": ["Usuario"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "usuario@email.com" },
+                  "senha": { "type": "string", "example": "123456" }
+                },
+                "required": ["email", "senha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": {
+                      "type": "string",
+                      "example": "Login deu certo"
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "integer", "example": 1 },
+                        "nome": { "type": "string", "example": "João" },
+                        "email": {
+                          "type": "string",
+                          "example": "joao@email.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciais inválidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Erro": {
+                      "type": "string",
+                      "example": "Erro. Login nao deu certo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create/list/task": {
+      "post": {
+        "summary": "Criar lista de tarefas",
+        "description": "Cria uma nova lista de tarefas para um usuário",
+        "tags": ["Lista de Tarefas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "usuario_id": { "type": "integer" }
+                },
+                "required": ["nome", "usuario_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": {
+                      "type": "string",
+                      "example": "Lista criada com sucesso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Nome da lista é obrigatório"
+          },
+          "500": {
+            "description": "Erro ao criar lista"
+          }
+        }
+      }
+    },
+    "/select/list/task": {
+      "post": {
+        "summary": "Listar listas de tarefas de um usuário",
+        "description": "Retorna todas as listas de tarefas criadas por um usuário",
+        "tags": ["Lista de Tarefas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario_id": { "type": "integer" }
+                },
+                "required": ["usuario_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Listas retornadas com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "nome": { "type": "string" },
+                      "usuario_id": { "type": "integer" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao selecionar as listas do usuário"
+          }
+        }
+      }
+    },
+
+    "/create/task": {
+      "post": {
+        "summary": "Criar tarefa",
+        "description": "Cria uma nova tarefa com os dados fornecidos",
+        "tags": ["Tarefa"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "titulo": { "type": "string" },
+                  "descricao": { "type": "string" },
+                  "data_tarefa": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-05-19"
+                  },
+                  "prioridade": { "type": "string" },
+                  "concluida": { "type": "boolean" },
+                  "lista_tarefa_id": { "type": "integer" }
+                },
+                "required": ["titulo", "data_tarefa", "lista_tarefa_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tarefa criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": {
+                      "type": "string",
+                      "example": "A tarefa foi criada"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao criar tarefa"
+          }
+        }
+      }
+    },
+    "/delete/one/task/{id}": {
+      "delete": {
+        "summary": "Deletar tarefa",
+        "description": "Deleta uma tarefa pelo ID",
+        "tags": ["Tarefa"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da tarefa a ser deletada",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefa deletada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": {
+                      "type": "string",
+                      "example": "A deleção foi feita com sucesso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao deletar tarefa"
+          }
+        }
+      }
+    },
+    "/delete/all/task/{lista_tarefa_id}": {
+      "delete": {
+        "summary": "Deletar todas as tarefas",
+        "description": "Deleta todas as tarefas de uma lista",
+        "tags": ["Tarefa"],
+        "parameters": [
+          {
+            "name": "lista_tarefa_id",
+            "in": "path",
+            "required": true,
+            "description": "ID da lista de tarefas",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todas as tarefas deletadas com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": {
+                      "type": "string",
+                      "example": "A deleção funcionou."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao deletar todas as tarefas"
+          }
+        }
+      }
+    },
+
+    "/select/all/task": {
+      "post": {
+        "summary": "Listar tarefas",
+        "description": "Lista todas as tarefas de uma lista",
+        "tags": ["Tarefa"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lista_tarefa_id": { "type": "integer" }
+                },
+                "required": ["lista_tarefa_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista de tarefas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "titulo": { "type": "string" },
+                      "descricao": { "type": "string" },
+                      "data_tarefa": { "type": "string", "format": "date" },
+                      "prioridade": { "type": "string" },
+                      "concluida": { "type": "boolean" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao listar tarefas"
+          }
+        }
+      }
+    },
+    "/forgot/password": {
+      "post": {
+        "summary": "Enviar código de verificação por e-mail",
+        "description": "Envia um código de 4 dígitos para o e-mail do usuário para recuperação de senha.",
+        "tags": ["Recuperação de Senha"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" }
+                },
+                "required": ["email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Código enviado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": { "type": "string" },
+                    "identy": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Código não enviado"
+          }
+        }
+      }
+    },
+    "/confirm/code/email": {
+      "post": {
+        "summary": "Confirmar código de verificação",
+        "description": "Valida o código digitado e gera um token temporário para alterar a senha.",
+        "tags": ["Recuperação de Senha"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codigo": { "type": "string" },
+                  "id": { "type": "integer" }
+                },
+                "required": ["codigo", "id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Message": { "type": "string" },
+                    "token": { "type": "string" },
+                    "id": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/reset/password": {
+      "post": {
+        "summary": "Redefinir senha do usuário",
+        "description": "Permite redefinir a senha usando um token temporário de verificação",
+        "tags": ["Recuperação de Senha"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <token>"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "senha_nova": { "type": "string" },
+                  "id": { "type": "integer" }
+                },
+                "required": ["senha_nova", "id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Senha alterada com sucesso"
+          },
+          "401": {
+            "description": "Token inválido ou ausente"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    }
+  }
+}
