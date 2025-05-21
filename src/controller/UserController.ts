@@ -17,13 +17,12 @@ export class UserController {
 
   static async createUser(req: Request, res: Response) {
     try {
-      const senha = req.body.senha;
 
-      const hash_senha = await bcrypt.hash(senha, 10);
+      
 
       const email = req.body.email;
 
-      await create(req.body.nome, req.body.email, hash_senha);
+      await create(req.body.nome, req.body.email, req.body.senha);
 
       const url_usuario = req.protocol + "://"+ req.host + `/valid/${generateCode(email)}`
 
@@ -39,6 +38,7 @@ export class UserController {
         Erro: "Não funcionou a criação",
       });
     }
+    
   }
 
   static async loginUser(req: Request, res: Response) {
