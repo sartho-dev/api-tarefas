@@ -1,6 +1,6 @@
 import "dotenv/config";
 import supertest from "supertest"
-import {app} from "../index"
+import {app} from "../app"
 import { create } from "../service/user/create-user";
 import { db } from "../config/connect";
 
@@ -13,7 +13,7 @@ const usuario = {
 let url_usuario: string;
     
 
-describe("Testar as rotas",()=>{
+describe("Testar as rotas de usuario",()=>{
     it("Iniciar",async()=>{
         const response = await supertest(app).get("/");
 
@@ -50,3 +50,5 @@ describe("Testar as rotas",()=>{
     })
 
 });
+
+describe
