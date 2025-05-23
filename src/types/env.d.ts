@@ -12,6 +12,7 @@ declare namespace NodeJS {
     MAIL_USER: string;
     MAIL_PASS: string;
     VECTOR: string,
-    KEY: string
+    KEY: string,
+    NODE_ENV: string
   }
 }
