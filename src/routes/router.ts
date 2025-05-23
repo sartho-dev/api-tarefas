@@ -23,13 +23,17 @@ router.delete(
 
 router.delete("/delete/one/task", autenticarToken, TaskController.deleteTask);
 
+//TODO: Rota para apagar uma lista de tarefas
+
 router.post(
   "/create/list/task",
   autenticarToken,
   ListTaskController.createListTask
 );
 
+
 router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
+
 
 router.get("/select/all/task", autenticarToken, TaskController.listAllTask);
 
