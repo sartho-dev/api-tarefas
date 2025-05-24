@@ -21,21 +21,23 @@ export class UserController {
       
 
       const email = req.body.email;
-
+      
       await create(req.body.nome, req.body.email, req.body.senha);
 
       const url_usuario = req.protocol + "://"+ req.host + `/valid/${generateCode(email)}`
-
-      sendUrlUser(email, url_usuario);
+     
+      if(process.env.NODE_ENV != "test"){
+        sendUrlUser(email, url_usuario);
+      };
 
       res.status(201).json({
         Message: "Usuario criado com sucesso",
-        Email: email,  
+        Email: process.env.NODE_ENV != "test" ? email : url_usuario,  
       });
 
     } catch (error) {
       res.status(400).json({
-        Erro: "Não funcionou a criação",
+        Erro: "Não funcionou a criação " + error,
       });
     }
     
@@ -63,7 +65,7 @@ export class UserController {
         expiresIn: "8h",
       });
 
-      console.log(token);
+      
 
       res.status(200).json({
         Message: "Login deu certo",

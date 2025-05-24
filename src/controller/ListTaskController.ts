@@ -25,7 +25,7 @@ export class ListTaskController {
       });
     } catch (error) {
       res.status(500).json({
-        Erro: "Erro ao criar lista",
+        Erro: "Erro ao criar lista " + error,
       });
     }
   }
