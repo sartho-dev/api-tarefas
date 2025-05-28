@@ -29,3 +29,77 @@ export function muitoFrontEnd(code: string) {
 </html>
 `;
 }
+
+export function UserValidHtml(){
+  return ` <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Validação Concluída</title>
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .card h1 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 16px;
+      margin-top: 0;
+    }
+
+    .check-icon {
+      font-size: 60px;
+      color: #4caf50;
+      margin-bottom: 20px;
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-voltar:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="check-icon">✔️</div>
+    <h1>Validação bem-sucedida!</h1>
+    <p>Seu acesso foi confirmado. Agora você pode continuar.</p>
+    
+  </div>
+</body>
+</html>
+`
+}

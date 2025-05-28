@@ -26,6 +26,19 @@ export async function getUserById(id: number) {
   }
 }
 
+export async function getListIdUserById(id: number) {
+  const result = await db.query("select * from lista_tarefa where usuario_id = $1", [id]);
+
+  const usuario = result.rows[0].usuario_id;
+
+  if (usuario) {
+    return usuario;
+  } else {
+    return false;
+  }
+}
+
+
 
 export async function getIdUserByEmail(email: string) {
   const result = await db.query("select id from usuario where email = $1", [

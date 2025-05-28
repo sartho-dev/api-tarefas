@@ -38,7 +38,7 @@ router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
 router.get("/select/all/task", autenticarToken, TaskController.listAllTask);
 
 //Valida usuario
-router.patch("/valid/:code", UserController.validUser);
+router.get("/valid/:code", UserController.validUser);
 
 //Valida codigo
 router.post("/forgot/password", MailerController.sendEmailController);

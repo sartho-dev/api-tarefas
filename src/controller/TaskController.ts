@@ -35,7 +35,7 @@ export class TaskController {
 
   static async deleteTask(req: Request, res: Response) {
     try {
-      await deleteOneTask(req.body.id);
+      await deleteOneTask(req.body.tarefa_id);
 
       res.status(200).json({
         Message: "A deleção foi feita com sucesso",
