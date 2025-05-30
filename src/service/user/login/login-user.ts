@@ -1,4 +1,4 @@
-import { db } from "../../config/connect";
+import { db } from "../../../config/connect";
 
 export async function getUserByEmail(email: string) {
   const result = await db.query("select * from usuario where email = $1", [

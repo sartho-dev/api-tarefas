@@ -1,5 +1,5 @@
-import { db } from "../../config/connect";
-import { ListaTarefa } from "../../model/ListaTarefa";
+import { db } from "../../../config/connect";
+import { ListaTarefa } from "../../../model/ListaTarefa";
 
 export async function createListTask(listaTarefa: ListaTarefa) {
   await db.query(

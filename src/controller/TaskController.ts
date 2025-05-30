@@ -1,10 +1,13 @@
 import { Response, Request } from "express";
-import { create } from "../service/task/create.task";
+import { create } from "../service/task/create/create.task";
 import { Tarefa } from "../model/Tarefa";
-import { deleteAllTask } from "../service/task/delete-alltask";
-import { listTask } from "../service/task/select-task";
-import { deleteOneTask } from "../service/task/delete-one-task";
-import { updateTaskService } from "../service/task/update.task";
+import { deleteAllTask } from "../service/task/delete/delete-alltask";
+import { listTask } from "../service/task/select/select-task-ord-geral";
+import { deleteOneTask } from "../service/task/delete/delete-one-task";
+import { updateTaskService } from "../service/task/update/update.task";
+import { selectTaskOrdPriority } from "../service/task/select/select-task-ord-prioridade";
+import { selectTaskOrdData } from "../service/task/select/select-task-ord-data";
+import { selectTaskOrdAlf } from "../service/task/select/select-task-ord-alf";
 
 export class TaskController {
   static async createTask(req: Request, res: Response) {
@@ -66,6 +69,29 @@ export class TaskController {
     }
   }
 
+  
+  static async updateTask(req: Request, res: Response) {
+    try {
+      const tarefa = new Tarefa(
+        req.body.titulo,
+        req.body.descricao,
+        req.body.data_tarefa,
+        req.body.prioridade,
+        req.body.lista_tarefa_id,
+        req.body.usuario_id,
+        req.body.id
+      );
+      const tarefa_atual = await updateTaskService(tarefa);
+      
+      res.status(200).json(tarefa_atual);
+      return;
+    } catch (error) {
+      res.status(500).json({
+        Message: "A tarefa não foi atualizada",
+      });
+      return;
+    }
+  }
   static async listAllTask(req: Request, res: Response) {
     try {
       const lista_tarefa_id = req.body.lista_tarefa_id;
@@ -82,29 +108,57 @@ export class TaskController {
     }
   }
 
-  /*TODO: implementar depois de conversar com o front 
-  async updateTask(req: Request, res: Response) {
+  static async listTaskByPriority(req: Request, res: Response) {
     try {
-      const tarefa = new Tarefa(
-        req.body.titulo,
-        req.body.descricao,
-        req.body.data_tarefa,
-        req.body.prioridade,
-        req.body.lista_tarefa_id,
-        req.body.usuario_id,
-        req.body.id
-      );
-      const tarefa_atual = await updateTaskService(tarefa);
+      const titulo = req.body.titulo;
+      const lista_tarefa_id = req.body.lista_tarefa_id;
 
-      res.status(200).json(tarefa_atual);
-      return;
+      const tasks = await selectTaskOrdPriority(titulo || "", lista_tarefa_id);
+
+      res.status(200).json({
+        Message: "Tarefas listadas por prioridade",
+        tasks,
+      });
     } catch (error) {
       res.status(500).json({
-        Message: "A tarefa não foi atualizada",
+        Erro: "Erro ao lista tarefas por prioridade",
       });
-      return;
     }
-  }*/
+  }
+
+  static async listTaskByData(req: Request, res: Response) {
+    try {
+      const titulo = req.body.titulo;
+      const lista_tarefa_id = req.body.lista_tarefa_id;
+
+      const tasks = await selectTaskOrdData(titulo || "", lista_tarefa_id);
+
+      res.status(200).json({
+        Message: "Tarefas listadas por data",
+        tasks,
+      });
+    } catch (error) {
+      res.status(500).json({
+        Erro: "Erro ao lista tarefas por data",
+      });
+    }
+  }
+
+  static async listTaskByAlf(req: Request, res: Response) {
+    try {
+      const titulo = req.body.titulo;
+      const lista_tarefa_id = req.body.lista_tarefa_id;
+
+      const tasks = await selectTaskOrdAlf(titulo || "", lista_tarefa_id);
+
+      res.status(200).json({
+        Message: "Tarefas listadas pela ordem alfabética do titulo",
+        tasks,
+      });
+    } catch (error) {
+      res.status(500).json({
+        Erro: "Erro ao lista tarefas pela ordem alfabética do titulo",
+      });
+    }
+  }
 }
-
-

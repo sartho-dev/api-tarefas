@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { createListTask } from "../service/list/create-list-task";
+import { createListTask } from "../service/list/create/create-list-task";
 import { ListaTarefa } from "../model/ListaTarefa";
-import { selectListUser } from "../service/list/list-task-user";
+import { selectListUser } from "../service/list/select/list-task-user";
 
 export class ListTaskController {
   static async createListTask(req: Request, res: Response) {

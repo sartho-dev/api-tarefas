@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken";
 import { generate4code } from "../service/user/generate-code";
 import { saveCode } from "../service/user/persist-code";
 import { validCode4 } from "../service/user/valid-user";
-import { getIdUserByEmail, getUserByEmail } from "../service/user/login-user";
-import { updateUserPassw } from "../service/user/update-user-password";
+import { getIdUserByEmail, getUserByEmail } from "../service/user/login/login-user";
+import { updateUserPassw } from "../service/user/update/update-user-password";
 
 type TokenPasswordPayload = {
   idToken: number;
@@ -55,7 +55,7 @@ export class MailerController {
 
       res.status(200).json({
         Message: "Usuario autenticado com sucesso!",
-        token,
+        token,  
         id: id_usuario,
       });
     } catch (error) {
@@ -82,15 +82,18 @@ export class MailerController {
       }
 
       const token = authorization.split(" ")[1];
+      console.log(token)
 
       const { idToken } = jwt.verify(
         token,
         process.env.SECRET_KEY
       ) as TokenPasswordPayload;
 
-      if (idToken != usuario_id) {
+      console.log("AAAAAA",  idToken)
+
+      if (idToken != usuario_id) {  
         res.status(401).json({
-          Erro: "Token inválido",
+          Erro: "Token inválido, idToken diferente",
         });
         return;
       }
