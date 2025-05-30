@@ -161,6 +161,114 @@ describe("Testar as rotas das tarefas",()=>{
         });
         expect((response2.body as any[]).length).toBe(0);
     });
+    it("Deletar uma lista de tarefas", async()=>{
+        //Criando listas e tarefas de teste
+        const responsecreatelist = await supertest(app).
+        post("/create/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            nome:"Lista Tarefas 33",
+            usuario_id : usuario.id
+        });
+        const responseselectlist = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        
+        const responsecreatetask1 = await supertest(app).
+        post("/create/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            titulo:"Tarefa AAA33",
+            descricao:"Descricao da tarefa 3333",
+            data_tarefa:"02/02/2022",
+            prioridade:"Baixa",
+            concluida:false,
+            lista_tarefa_id:responseselectlist.body[1].id
+        });
+
+        const responsecreatetask2 = await supertest(app).
+        post("/create/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            titulo:"Tarefa A1",
+            descricao:"Descricao da tarefa",
+            data_tarefa:"01/01/2020",
+            prioridade:"Alta",
+            concluida:true,
+            lista_tarefa_id:responseselectlist.body[0].id
+        });
+        expect(responsecreatelist.status).toBe(200);
+        expect(responsecreatetask1.status).toBe(200);
+        expect(responsecreatetask2.status).toBe(200);
+        //Deletar a primeira lista
+        const responsedeletetask1 = await supertest(app).
+        delete("/delete/one/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            id:responseselectlist.body[0].id
+        });
+        expect(responsedeletetask1.status).toBe(200);
+        //Verificar se a lista que sobrou foi a outra
+        const responseselectlist2 = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        expect((responseselectlist2.body as any[]).length).toBe(1);
+        expect(responseselectlist2.body[0].id).toBe(responseselectlist.body[1].id);
+    });
+    it("Deletar todas as listas de tarefas", async()=>{
+        const responsecreatelist = await supertest(app).
+        post("/create/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            nome:"Lista Tarefas 34",
+            usuario_id : usuario.id
+        });
+        const responseselectlist = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        
+        const responsecreatetask1 = await supertest(app).
+        post("/create/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            titulo:"Tarefa AAA34",
+            descricao:"Descricao da tarefa 3553",
+            data_tarefa:"03/02/2022",
+            prioridade:"Baixa",
+            concluida:false,
+            lista_tarefa_id:responseselectlist.body[1].id
+        });
+
+        const responsecreatetask2 = await supertest(app).
+        post("/create/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            titulo:"Tarefa A21",
+            descricao:"Descricao da tarefa",
+            data_tarefa:"01/02/2020",
+            prioridade:"Alta",
+            concluida:true,
+            lista_tarefa_id:responseselectlist.body[0].id
+        });
+        expect(responsecreatelist.status).toBe(200);
+        expect(responsecreatetask1.status).toBe(200);
+        expect(responsecreatetask2.status).toBe(200);
+
+        //Deletar todas as listas
+        const responsedeletealltask = await supertest(app).
+        delete("/delete/all/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id:usuario.id
+        });
+        expect(responsedeletealltask.status).toBe(200);
+
+        //Ver se a lista está vazia
+        const responseselectlist2 = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        expect((responseselectlist2.body as any[]).length).toBe(0);
+    });
 });
 
 describe("Testar erro de acesso",()=>{
@@ -213,5 +321,6 @@ describe("Testar erro de acesso",()=>{
             usuario_id : usuario2.id
         });
         expect(responseacao.status).toBe(401);
+        expect(responseacao.body.Erro).toBe("Usuario errado");
     });
 });
