@@ -38,7 +38,7 @@ export class MailerController {
     try {
       const codigoDigitado = req.body.codigo;
 
-      const id_usuario = req.body.id;
+      const id_usuario = req.body.id_usuario;
 
       const valido = validCode4(codigoDigitado, id_usuario);
 
@@ -72,7 +72,7 @@ export class MailerController {
 
       const { authorization } = req.headers;
 
-      const usuario_id = req.body.id;
+      const usuario_id = req.body.id_usuario;
 
       if (!authorization) {
         res.status(401).json({

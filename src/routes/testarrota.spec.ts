@@ -48,6 +48,9 @@ describe("Testar as rotas de usuario",()=>{
             email: usuario.email,
             senha: usuario.senha
         });
+        
+        
+
         usuario.id = response.body.user.id;
         usuarioToken = response.body.token;
         expect(response.status).toBe(200);
@@ -56,7 +59,7 @@ describe("Testar as rotas de usuario",()=>{
     });
     it("Validando usuario",async()=>{
         const response = await supertest(app).
-        patch("/valid/" + url_usuario.split("/")[4]);
+        get("/valid/" + url_usuario.split("/")[4]);
         
         expect(response.status).toBe(200);
     });
@@ -65,13 +68,16 @@ describe("Testar as rotas de usuario",()=>{
 
 describe("Testar as rotas das tarefas",()=>{
     it("Criar lista de tarefas",async()=>{
+        
+
         const response = await supertest(app).
         post("/create/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             nome:"Lista Tarefas 1",
             usuario_id : usuario.id
         });
-        
+
+
         expect(response.status).toBe(200);
     });
     it("Ver as lista de tarefas",async()=>{
@@ -130,7 +136,7 @@ describe("Testar as rotas das tarefas",()=>{
         const response1 = await supertest(app).
         delete("/delete/one/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
-            id : tarefas_id[0]
+            tarefa_id : tarefas_id[0]
         });
         expect(response1.status).toBe(200);
         const response2 = await supertest(app).

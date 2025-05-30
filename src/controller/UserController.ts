@@ -7,6 +7,7 @@ import { generateCode } from "../service/user/generate-code";
 import { sendEmailUser, sendUrlUser } from "../service/nodemailer";
 import { descryptCode } from "../service/user/descript-email";
 import { validUserService } from "../service/user/valid-user";
+import { UserValidHtml } from "../service/html";
 
 export class UserController {
   static async index(req: Request, res: Response) {
@@ -92,9 +93,17 @@ export class UserController {
 
       await validUserService(email)
 
-      res.status(200).json({
-        Message: "Usuario validado"
-      })
+      if(process.env.NODE_ENV == "test"){
+        
+        res.status(200).json({
+        Message: "Usuario validado",
+
+        })
+        return
+      }
+      
+
+      res.send(UserValidHtml())
 
     } catch (error) {
       res.status(500).json({
