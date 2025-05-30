@@ -3,7 +3,7 @@ import { db } from "../../../config/connect";
 export async function listTask(listaTarefaId: number) {
   const result = await db.query(
     `
-    SELECT titulo, concluida
+    SELECT *
     FROM tarefa
     WHERE lista_tarefa_id = $1
     ORDER BY

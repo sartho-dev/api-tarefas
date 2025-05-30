@@ -8,6 +8,10 @@ import { updateTaskService } from "../service/task/update/update.task";
 import { selectTaskOrdPriority } from "../service/task/select/select-task-ord-prioridade";
 import { selectTaskOrdData } from "../service/task/select/select-task-ord-data";
 import { selectTaskOrdAlf } from "../service/task/select/select-task-ord-alf";
+import { updateTaskTitulo } from "../service/task/update/update-task-titulo";
+import { updateTaskDescription } from "../service/task/update/update-task-description";
+import { updateTaskPriority } from "../service/task/update/update-task-priority";
+import { updateTaskDate } from "../service/task/update/update-task-date";
 
 export class TaskController {
   static async createTask(req: Request, res: Response) {
@@ -159,6 +163,78 @@ export class TaskController {
       res.status(500).json({
         Erro: "Erro ao lista tarefas pela ordem alfabética do titulo",
       });
+    }
+  }
+
+  static async updateTitulo(req: Request, res: Response) {
+    try{
+      const titulo = req.body.titulo;
+      const tarefa_id = req.body.tarefa_id;
+
+      await updateTaskTitulo(titulo, tarefa_id);
+      res.status(200).json({
+        Message: `Título alterado para ${titulo}`
+      });
+
+    } catch (error){
+      res.status(500).json({
+        Erro: "Erro ao mudar título",
+      });
+
+    }
+  }
+
+  static async updateDescription(req: Request, res: Response) {
+    try{
+      const description = req.body.descricao;
+      const tarefa_id = req.body.tarefa_id;
+
+      await updateTaskDescription(description, tarefa_id);
+      res.status(200).json({
+        Message: `Descrição alterado para '${description}'`
+      });
+
+    } catch (error){
+      res.status(500).json({
+        Erro: "Erro ao mudar descrição",
+      });
+
+    }
+  }
+
+  static async updatePriority(req: Request, res: Response) {
+    try{
+      const prioridade = req.body.prioridade;
+      const tarefa_id = req.body.tarefa_id;
+
+      await updateTaskPriority(prioridade, tarefa_id);
+      res.status(200).json({
+        Message: `Prioridade alterada para ${prioridade}`
+      });
+
+    } catch (error){
+      res.status(500).json({
+        Erro: "Erro ao mudar prioridade",
+      });
+
+    }
+  }
+
+  static async updateDate(req: Request, res: Response) {
+    try{
+      const date = new Date(req.body.data_tarefa);
+      const tarefa_id = req.body.tarefa_id;
+      console.log(date)
+      await updateTaskDate(date, tarefa_id);
+      res.status(200).json({
+        Message: `Data alterada para ${date}`
+      });
+
+    } catch (error){
+      res.status(500).json({
+        Erro: "Erro ao mudar data",
+      });
+
     }
   }
 }

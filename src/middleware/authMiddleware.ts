@@ -79,6 +79,16 @@ export async function autenticarToken(
       }
     }
 
+    if (req.body.prioridade) {
+      if (req.body.prioridade != "Alta" && req.body.prioridade != "Media" && req.body.prioridade != "Baixa"){
+        res.status(406).json({
+          Erro: "Prioridade inválida"
+        });
+        return;
+      }
+
+    }
+
     next();
   } catch (error) {
     res.status(500).json({
@@ -86,4 +96,6 @@ export async function autenticarToken(
     });
     return;
   }
+
+  
 }
