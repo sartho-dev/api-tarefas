@@ -207,5 +207,6 @@ describe("Testar erro de acesso",()=>{
             usuario_id : usuario2.id
         });
         expect(responseacao.status).toBe(401);
+        expect(responseacao.body.Erro).toBe("Usuario errado");
     });
 });

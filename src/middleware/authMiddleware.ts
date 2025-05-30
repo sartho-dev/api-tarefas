@@ -41,6 +41,14 @@ export async function autenticarToken(
     })
     return
   }
+  if(req.body.usuario_id){
+    if(req.body.usuario_id != id){
+      res.status(401).json({
+        Erro: "Usuario errado"
+      })
+      return
+    }
+   }
   //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
   next();
 }
