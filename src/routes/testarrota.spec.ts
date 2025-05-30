@@ -239,6 +239,25 @@ describe("Testar as rotas das tarefas",()=>{
         });
         expect((responsetasksafter.body[0].data_tarefa as string).split("T")[0]).toBe("2023-06-25")
     });
+    it("Mudar título da lista",async()=>{
+        const responselisttasksbefore = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        const responsetitulo = await supertest(app).
+        patch("/update/list/task/title").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            nome:"Outra lista",
+            lista_tarefa_id:responselisttasksbefore.body[0].id
+        });
+        const responsetasksafter = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        expect(responsetasksafter.body[0].nome).toBe("Outra lista")
+    });
     /*
     it("Deletar todas as tarefa",async()=>{
         const response1 = await supertest(app).

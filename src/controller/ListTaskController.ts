@@ -5,6 +5,7 @@ import { ListaTarefa } from "../model/ListaTarefa";
 import { selectListUser } from "../service/list/select/list-task-user";
 import { deleteOneListTask } from "../service/list/delete/delete-one-list-tasks";
 import { deleteAllListTask } from "../service/list/delete/delete-all-list-tasks";
+import { updateListTaskTitulo } from "../service/list/update/update-listask-titulo";
 
 
 
@@ -78,6 +79,24 @@ export class ListTaskController {
           Message: "Erro. A deleção das listas não funcionou",
         });
         return;
+      }
+    }
+
+  static async updateListaTitulo(req: Request, res: Response) {
+      try{
+        const titulo = req.body.nome;
+        const lista_tarefa_id = req.body.lista_tarefa_id;
+  
+        await updateListTaskTitulo(titulo, lista_tarefa_id);
+        res.status(200).json({
+          Message: `Título da lista alterado para ${titulo}`
+        });
+  
+      } catch (error){
+        res.status(500).json({
+          Erro: "Erro ao mudar título",
+        });
+  
       }
     }
 }

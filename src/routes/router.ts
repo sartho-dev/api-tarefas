@@ -64,7 +64,7 @@ router.delete("/delete/one/list/task", autenticarToken, ListTaskController.delet
 
 router.delete("/delete/all/list/task", autenticarToken, ListTaskController.deleteAllListTask);
 
-
+router.patch("/update/list/task/title", autenticarToken, ListTaskController.updateListaTitulo);
 
 /*TODO: Falar com o front.
 router.put("/update/task", autenticarToken, taskController.updateTask);
