@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import { createListTask } from "../service/list/create/create-list-task";
 import { ListaTarefa } from "../model/ListaTarefa";
 
-import { selectListUser } from "../service/list/list-task-user";
-import { deleteOneListTask } from "../service/list/delete-one-list-tasks";
-import { deleteAllListTask } from "../service/list/delete-all-list-tasks";
+import { selectListUser } from "../service/list/select/list-task-user";
+import { deleteOneListTask } from "../service/list/delete/delete-one-list-tasks";
+import { deleteAllListTask } from "../service/list/delete/delete-all-list-tasks";
 
 
 

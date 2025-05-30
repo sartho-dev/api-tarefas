@@ -1,4 +1,4 @@
-import { db } from "../../config/connect";
+import { db } from "../../../config/connect";
 
 export async function deleteOneListTask(id:number) {
     await db.query("delete from tarefa where lista_tarefa_id = $1", [id]);

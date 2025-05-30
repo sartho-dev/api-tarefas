@@ -1,4 +1,4 @@
-import { db } from "../../config/connect";
+import { db } from "../../../config/connect";
 
 export async function deleteAllListTask(usuario_id: number) {
   await db.query(
