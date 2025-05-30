@@ -49,7 +49,7 @@ export async function autenticarToken(
       return
     }
    }
-  //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
+  
   next();
 }
 
