@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { create } from "../service/user/create-user";
-import { getUserByEmail } from "../service/user/login-user";
+import { create } from "../service/user/create/create-user";
+import { getUserByEmail } from "../service/user/login/login-user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { generateCode } from "../service/user/generate-code";

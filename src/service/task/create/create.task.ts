@@ -1,5 +1,5 @@
-import { Tarefa } from "../../model/Tarefa";
-import { db } from "../../config/connect";
+import { Tarefa } from "../../../model/Tarefa";
+import { db } from "../../../config/connect";
 
 export async function create(tarefa: Tarefa) {
   await db.query(

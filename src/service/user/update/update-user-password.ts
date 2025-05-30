@@ -1,4 +1,4 @@
-import { db } from "../../config/connect";
+import { db } from "../../../config/connect";
 import bcrypt from "bcrypt";
 
 export async function updateUserPassw(senha_nova: string, id_usuario: number) {

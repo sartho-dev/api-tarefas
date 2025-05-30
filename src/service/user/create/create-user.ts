@@ -1,4 +1,4 @@
-import { db } from "../../config/connect";
+import { db } from "../../../config/connect";
 import bcrypt from "bcrypt";
 
 export async function create(nome: string, email: string, senha: string) {

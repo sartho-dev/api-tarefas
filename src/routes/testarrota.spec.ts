@@ -1,7 +1,7 @@
 import "dotenv/config";
 import supertest from "supertest"
 import {app} from "../app"
-import { create } from "../service/user/create-user";
+import { create } from "../service/user/create/create-user";
 import { db } from "../config/connect";
 
 let usuarioToken: string;

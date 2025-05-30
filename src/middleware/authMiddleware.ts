@@ -1,123 +1,89 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { getUserById } from "../service/user/login-user";
-import { selectUserIdfromList } from "../service/list/select-id-task";
-import { selectIdfromListaTarefaId } from "../service/task/selectIdfromListaTarefa";
+import { getUserById } from "../service/user/login/login-user";
+import { selectUserIdfromList } from "../service/list/select/select-id-task";
+import { selectIdfromListaTarefaId } from "../service/task/select/selectIdfromListaTarefa";
 import { Usuario } from "../model/Usuario";
 
 type JwtPayload = {
   id: number;
 };
 
-
-
 export async function autenticarToken(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-try {
+  try {
     const { authorization } = req.headers;
 
-  if (!authorization) {
-    res.status(401).json({
-      Message: `Erro de autorização. Token invalido`,
-    });
-    return;
-  }
-
-  const token = authorization.split(" ")[1];
-
-  const { id } = jwt.verify(token, process.env.SECRET_KEY) as JwtPayload;
-
-  const user = await getUserById(id);
-
-  if (!user) {
-    res.status(404).json({
-      Message: `Erro ao buscar de usuário ${id}`,
-    });
-    return;
-  }
-
-  if(!user.valido){
-    res.status(401).json({
-      Erro: "Erro de validação"
-    })
-    return
-  }
-
-
-  //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
-  
-  if(req.body.usuario_id){
-    
-    
-    if(req.body.usuario_id != id){
+    if (!authorization) {
       res.status(401).json({
-        Erro: "Não autorizado"
-      })
-      return
-         
-    }
-    
-  }
-  
-  
-
-  
- 
-
-  if(req.body.lista_tarefa_id){
-
-    const usuario_id = await selectUserIdfromList(req.body.lista_tarefa_id)
-    
-
-    
-
-    if(id != usuario_id){
-      res.status(401).json({
-        Erro: "Erro de autorização"
-      })
-      return
+        Message: `Erro de autorização. Token invalido`,
+      });
+      return;
     }
 
-  }
-    
+    const token = authorization.split(" ")[1];
 
+    const { id } = jwt.verify(token, process.env.SECRET_KEY) as JwtPayload;
 
+    const user = await getUserById(id);
 
-  if(req.body.tarefa_id){
-
-    const idListaTarefa = await selectIdfromListaTarefaId(req.body.tarefa_id) 
-
-    const usuarioId = await selectUserIdfromList(idListaTarefa)
-
-
-    if(usuarioId != id){
-      res.status(401).json({
-        Erro: "Erro de autorização"
-      })
-      return
+    if (!user) {
+      res.status(404).json({
+        Message: `Erro ao buscar de usuário ${id}`,
+      });
+      return;
     }
 
-  }
+    if (!user.valido) {
+      res.status(401).json({
+        Erro: "Erro de validação",
+      });
+      return;
+    }
 
+    //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
 
-  next();
+    if (req.body.usuario_id) {
+      if (req.body.usuario_id != id) {
+        res.status(401).json({
+          Erro: "Não autorizado",
+        });
+        return;
+      }
+    }
 
+    if (req.body.lista_tarefa_id) {
+      const usuario_id = await selectUserIdfromList(req.body.lista_tarefa_id);
 
+      if (id != usuario_id) {
+        res.status(401).json({
+          Erro: "Erro de autorização",
+        });
+        return;
+      }
+    }
+
+    if (req.body.tarefa_id) {
+      const idListaTarefa = await selectIdfromListaTarefaId(req.body.tarefa_id);
+
+      const usuarioId = await selectUserIdfromList(idListaTarefa);
+
+      if (usuarioId != id) {
+        res.status(401).json({
+          Erro: "Erro de autorização",
+        });
+        return;
+      }
+    }
+
+    next();
   } catch (error) {
     res.status(500).json({
-      Erro: error
-    })
-    return
+      Erro: error,
+    });
+    return;
   }
-  
- 
-
 }
-
-
-
-
-

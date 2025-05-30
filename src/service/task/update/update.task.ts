@@ -1,5 +1,5 @@
-import { db } from "../../config/connect";
-import { Tarefa } from "../../model/Tarefa";
+import { db } from "../../../config/connect";
+import { Tarefa } from "../../../model/Tarefa";
 
 export async function updateTaskService(tarefa: Tarefa) {
   const result = await db.query(
