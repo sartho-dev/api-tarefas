@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS public.usuario
 
 TABLESPACE pg_default;
 
-
+ALTER TABLE IF EXISTS public.usuario
+    OWNER to postgres;
 
 -- Table: public.lista_tarefa
 
@@ -41,6 +42,8 @@ CREATE TABLE IF NOT EXISTS public.lista_tarefa
 
 TABLESPACE pg_default;
 
+ALTER TABLE IF EXISTS public.lista_tarefa
+    OWNER to postgres;
 
 
 -- Table: public.tarefa
@@ -65,7 +68,8 @@ CREATE TABLE IF NOT EXISTS public.tarefa
 
 TABLESPACE pg_default;
 
-
+ALTER TABLE IF EXISTS public.tarefa
+    OWNER to postgres;
 
 
     `);

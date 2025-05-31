@@ -46,19 +46,17 @@ export async function autenticarToken(
 
     //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
 
-    
-
-    if (req.query.usuario_id) {
-      if (Number(req.query.usuario_id)!= id) {
+    if (req.body.usuario_id) {
+      if (req.body.usuario_id != id) {
         res.status(401).json({
           Erro: "Não autorizado",
         });
         return;
       }
     }
-    
-    if (Number(req.query.lista_tarefa_id)) {
-      const usuario_id = await selectUserIdfromList(Number(req.query.lista_tarefa_id));
+
+    if (req.body.lista_tarefa_id) {
+      const usuario_id = await selectUserIdfromList(req.body.lista_tarefa_id);
 
       if (id != usuario_id) {
         res.status(401).json({
@@ -67,10 +65,9 @@ export async function autenticarToken(
         return;
       }
     }
-    
-    if (Number(req.query.tarefa_id)) {
 
-      const idListaTarefa = await selectIdfromListaTarefaId(Number(req.query.tarefa_id));
+    if (req.body.tarefa_id) {
+      const idListaTarefa = await selectIdfromListaTarefaId(req.body.tarefa_id);
 
       const usuarioId = await selectUserIdfromList(idListaTarefa);
 
@@ -81,21 +78,21 @@ export async function autenticarToken(
         return;
       }
     }
-    
 
-    if (req.body?.prioridade) {
-      const prioridadesValidas = ["Alta", "Media", "Baixa"];
-      if (!prioridadesValidas.includes(req.body.prioridade)) {
-        res.status(406).json({ Erro: "Prioridade inválida" });
-        return
+    if (req.body.prioridade) {
+      if (req.body.prioridade != "Alta" && req.body.prioridade != "Media" && req.body.prioridade != "Baixa"){
+        res.status(406).json({
+          Erro: "Prioridade inválida"
+        });
+        return;
       }
+
     }
-    
 
     next();
   } catch (error) {
     res.status(500).json({
-      Erro: "Erro no middleware",
+      Erro: error,
     });
     return;
   }

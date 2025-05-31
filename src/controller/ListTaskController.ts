@@ -38,20 +38,14 @@ export class ListTaskController {
   }
 
   static async listTask(req: Request, res: Response) {
-   
     try {
-      
-      
-      const usuario_id  = req.query.usuario_id
-
-      const listUser = await selectListUser(Number(usuario_id));
+      const listUser = await selectListUser(req.body.usuario_id);
 
       res.status(200).json(listUser);
-    
+      return;
     } catch (error) {
       res.status(500).json({
         Erro: "Erro ao selecionar as listas de usuario",
-       
       });
     }
   }

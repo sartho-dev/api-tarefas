@@ -2,18 +2,10 @@ import "dotenv/config";
 import express from "express";
 import { router } from "./routes/router";
 
-import cors from "cors"
-
-
+import session from "express-session";
 
 //express() é uma função que retorna um objeto
 const app = express();
-
-app.use(cors({
-    origin: "http://localhost:3000",
-    methods: ['GET', 'POST', 'PUT','DELETE', 'PATCH' ],
-    credentials: true
-}))
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
