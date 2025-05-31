@@ -34,11 +34,11 @@ router.delete(
 router.delete("/delete/one/task", autenticarToken, TaskController.deleteTask);
 
 
-router.get("/select/task/priority", autenticarToken, TaskController.listTaskByPriority)
+router.post("/select/task/priority", autenticarToken, TaskController.listTaskByPriority)
 
-router.get("/select/task/data", autenticarToken, TaskController.listTaskByData)
+router.post("/select/task/data", autenticarToken, TaskController.listTaskByData)
 
-router.get("/select/task/alf", autenticarToken, TaskController.listTaskByAlf)
+router.post("/select/task/alf", autenticarToken, TaskController.listTaskByAlf)
 
 //Rotas de tarefa update
 router.patch("/update/task/concluida", autenticarToken, TaskController.updateConcluida);
@@ -56,9 +56,9 @@ router.post(
   ListTaskController.createListTask
 );
 
-router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
+router.post("/select/list/task", autenticarToken, ListTaskController.listTask);
 
-router.get("/select/all/task", autenticarToken, TaskController.listAllTask);
+router.post("/select/all/task", autenticarToken, TaskController.listAllTask);
 
 router.delete("/delete/one/list/task", autenticarToken, ListTaskController.deleteOneListTask);
 
