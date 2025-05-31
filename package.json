@@ -11,11 +11,12 @@
     "test": "jest --detectOpenHandles",
     "dev": "tsx watch src/index.ts",
     "generate:table": "tsx src/database/generate.ts",
-    "start" : "node dist/index.js"
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "aes-js": "^3.1.2",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@types/aes-js": "^3.1.4",
     "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.18",
     "@types/express": "^5.0.1",
     "@types/express-session": "^1.18.1",
     "@types/jest": "^29.5.14",
