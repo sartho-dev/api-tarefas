@@ -55,7 +55,7 @@ export async function autenticarToken(
       }
     }
 
-    if (Number(req.params.lista_tarefa_id)) {
+    if (Number(req.query.lista_tarefa_id)) {
       const usuario_id = await selectUserIdfromList(req.body.lista_tarefa_id);
 
       if (id != usuario_id) {
