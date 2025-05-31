@@ -14,6 +14,6 @@ Features Adicionais:
 
 
   
-- Repositório Front-end: <> https://github.com/monteirommd/megatask-frontend </>
-- Repositório Design Web: <> https://www.figma.com/design/JTKUTMO5gjp7REFn5DOPQl/Protótipo-TO-DO-LIST---MEGA?node-id=0-1&t=dPD0zXn8SP3QjKhf-1 </>
-- Repositório Design Mobile: <> https://www.figma.com/design/r0LoGBEWOHWo34WmR45bKj/Protótipo-TO-DO-LIST-MOBILE---MEGA?t=zu1zI6xeQTHDzVfu-1 </>
+- Repositório Front-end:  https://github.com/monteirommd/megatask-frontend 
+- Repositório Design Web: https://www.figma.com/design/JTKUTMO5gjp7REFn5DOPQl/Protótipo-TO-DO-LIST---MEGA?node-id=0-1&t=dPD0zXn8SP3QjKhf-1 
+- Repositório Design Mobile: https://www.figma.com/design/r0LoGBEWOHWo34WmR45bKj/Protótipo-TO-DO-LIST-MOBILE---MEGA?t=zu1zI6xeQTHDzVfu-1 
