@@ -55,7 +55,7 @@ export async function autenticarToken(
       }
     }
 
-    if (req.body.lista_tarefa_id) {
+    if (Number(req.params.lista_tarefa_id)) {
       const usuario_id = await selectUserIdfromList(req.body.lista_tarefa_id);
 
       if (id != usuario_id) {
@@ -67,6 +67,7 @@ export async function autenticarToken(
     }
 
     if (req.body.tarefa_id) {
+
       const idListaTarefa = await selectIdfromListaTarefaId(req.body.tarefa_id);
 
       const usuarioId = await selectUserIdfromList(idListaTarefa);

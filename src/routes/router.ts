@@ -49,6 +49,7 @@ router.patch("/update/task/description", autenticarToken, TaskController.updateD
 router.patch("/update/task/priority", autenticarToken, TaskController.updatePriority);
 
 router.patch("/update/task/date", autenticarToken, TaskController.updateDate);
+
 //Rotas de Lista de Tarefa
 router.post(
   "/create/list/task",

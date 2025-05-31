@@ -98,7 +98,7 @@ export class TaskController {
   }
   static async listAllTask(req: Request, res: Response) {
     try {
-      const lista_tarefa_id = req.body.lista_tarefa_id;
+      const lista_tarefa_id = Number(req.params.lista_tarefa_id);
 
       const tarefas = await listTask(lista_tarefa_id);
 
@@ -114,10 +114,10 @@ export class TaskController {
 
   static async listTaskByPriority(req: Request, res: Response) {
     try {
-      const titulo = req.body.titulo;
-      const lista_tarefa_id = req.body.lista_tarefa_id;
+      
+      const lista_tarefa_id = Number(req.query.lista_tarefa_id);
 
-      const tasks = await selectTaskOrdPriority(titulo || "", lista_tarefa_id);
+      const tasks = await selectTaskOrdPriority(lista_tarefa_id);
 
       res.status(200).json({
         Message: "Tarefas listadas por prioridade",
@@ -132,10 +132,10 @@ export class TaskController {
 
   static async listTaskByData(req: Request, res: Response) {
     try {
-      const titulo = req.body.titulo;
-      const lista_tarefa_id = req.body.lista_tarefa_id;
+    
+      const lista_tarefa_id = Number(req.query.lista_tarefa_id);
 
-      const tasks = await selectTaskOrdData(titulo || "", lista_tarefa_id);
+      const tasks = await selectTaskOrdData(lista_tarefa_id);
 
       res.status(200).json({
         Message: "Tarefas listadas por data",
@@ -150,10 +150,10 @@ export class TaskController {
 
   static async listTaskByAlf(req: Request, res: Response) {
     try {
-      const titulo = req.body.titulo;
-      const lista_tarefa_id = req.body.lista_tarefa_id;
+      
+      const lista_tarefa_id = Number(req.query.lista_tarefa_id);
 
-      const tasks = await selectTaskOrdAlf(titulo || "", lista_tarefa_id);
+      const tasks = await selectTaskOrdAlf(lista_tarefa_id);
 
       res.status(200).json({
         Message: "Tarefas listadas pela ordem alfabética do titulo",
