@@ -46,8 +46,13 @@ export async function autenticarToken(
 
     //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
 
-    if (req.query.usuario_id) {
-      if (Number(req.query.usuario_id)!= id) {
+     const usuarioIdFromRequest =
+      req.query.usuario_id ||
+      req.body.usuario_id ||
+      req.params.usuario_id;
+
+    if (usuarioIdFromRequest) {
+      if (Number(usuarioIdFromRequest!= id)) {
         res.status(401).json({
           Erro: "Não autorizado",
         });
@@ -93,7 +98,7 @@ export async function autenticarToken(
     next();
   } catch (error) {
     res.status(500).json({
-      Erro: "SAFADO",
+      Erro: "SAFADO 2.0",
     });
     return;
   }

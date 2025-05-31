@@ -41,9 +41,9 @@ export class ListTaskController {
     try {
       
       
-      const usuario_id  = Number(req.params.usuario_id)
+       const usuario_id  = req.params.usuario_id
 
-      const listUser = await selectListUser(usuario_id);
+      const listUser = await selectListUser(Number(usuario_id));
 
       res.status(200).json(listUser);
     
