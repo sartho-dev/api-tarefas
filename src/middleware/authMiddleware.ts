@@ -45,7 +45,7 @@ export async function autenticarToken(
     }
 
     //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
-    /*
+    
      const usuarioIdFromRequest =
       req.query.usuario_id ||
       req.body.usuario_id ||
@@ -94,7 +94,7 @@ export async function autenticarToken(
       }
 
     }
-    */
+    
     next();
   } catch (error) {
     res.status(500).json({
