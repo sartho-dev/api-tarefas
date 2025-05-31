@@ -93,7 +93,7 @@ export async function autenticarToken(
     next();
   } catch (error) {
     res.status(500).json({
-      Erro: error,
+      Erro: "SAFADO",
     });
     return;
   }

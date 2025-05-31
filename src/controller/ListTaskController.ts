@@ -37,7 +37,9 @@ export class ListTaskController {
   }
 
   static async listTask(req: Request, res: Response) {
+   
     try {
+      
       
       const usuario_id  = Number(req.query.usuario_id)
 
