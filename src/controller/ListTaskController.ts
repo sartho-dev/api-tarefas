@@ -41,7 +41,7 @@ export class ListTaskController {
     try {
       
       
-      const usuario_id  = Number(req.query.usuario_id)
+      const usuario_id  = Number(req.params.usuario_id)
 
       const listUser = await selectListUser(usuario_id);
 
