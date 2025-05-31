@@ -17,6 +17,7 @@
     "aes-js": "^3.1.2",
     "aes256": "^1.1.0",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "D": "^1.0.0",
     "data-fns": "^1.1.0",
     "date-fns": "^2.30.0",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/aes-js": "^3.1.4",
+    "@types/cors": "^2.8.18",
     "@types/express": "^5.0.1",
     "@types/express-session": "^1.18.1",
     "@types/jest": "^29.5.14",
