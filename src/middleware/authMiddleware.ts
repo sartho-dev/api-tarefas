@@ -56,7 +56,7 @@ export async function autenticarToken(
         return;
       }
     }
-
+    
     if (Number(req.query.lista_tarefa_id)) {
       const usuario_id = await selectUserIdfromList(Number(req.query.lista_tarefa_id));
 
@@ -67,7 +67,7 @@ export async function autenticarToken(
         return;
       }
     }
-
+    
     if (Number(req.query.tarefa_id)) {
 
       const idListaTarefa = await selectIdfromListaTarefaId(Number(req.query.tarefa_id));
@@ -81,8 +81,9 @@ export async function autenticarToken(
         return;
       }
     }
+    
 
-    if (req.body.prioridade) {
+    if (req.body?.prioridade) {
       if (req.body.prioridade != "Alta" && req.body.prioridade != "Media" && req.body.prioridade != "Baixa"){
         res.status(406).json({
           Erro: "Prioridade inválida"
@@ -91,6 +92,7 @@ export async function autenticarToken(
       }
 
     }
+    
 
     next();
   } catch (error) {
