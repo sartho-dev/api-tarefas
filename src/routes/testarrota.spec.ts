@@ -82,7 +82,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Ver as lista de tarefas",async()=>{
         const response = await supertest(app).
-        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             usuario_id : usuario.id
         });
@@ -121,7 +121,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Listar tarefas de uma lista",async()=>{
         const response = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -141,7 +141,7 @@ describe("Testar as rotas das tarefas",()=>{
         });
         expect(response1.status).toBe(200);
         const response2 = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -151,7 +151,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Mudar título",async()=>{
         const responsetasksbefore = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -162,7 +162,7 @@ describe("Testar as rotas das tarefas",()=>{
             tarefa_id:responsetasksbefore.body[0].id
         });
         const responsetasksafter = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -170,7 +170,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Mudar descrição",async()=>{
         const responsetasksbefore = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -181,7 +181,7 @@ describe("Testar as rotas das tarefas",()=>{
             tarefa_id:responsetasksbefore.body[0].id
         });
         const responsetasksafter = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -189,7 +189,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Mudar prioridade",async()=>{
         const responsetasksbefore = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -200,7 +200,7 @@ describe("Testar as rotas das tarefas",()=>{
             tarefa_id:responsetasksbefore.body[0].id
         });
         const responsetasksafter = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -208,7 +208,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Prioridade inválida",async()=>{
         const responsetasksbefore = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -222,7 +222,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Mudar status de concluida",async()=>{
         const responsetasksbefore = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -234,7 +234,7 @@ describe("Testar as rotas das tarefas",()=>{
         });
         expect(responseconcluida.status).toBe(200);
         const responsetasksafter = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -246,7 +246,7 @@ describe("Testar as rotas das tarefas",()=>{
             tarefa_id:responsetasksbefore.body[0].id
         });
         const responsetasksafter2 = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -254,7 +254,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Mudar data",async()=>{
         const responsetasksbefore = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -265,7 +265,7 @@ describe("Testar as rotas das tarefas",()=>{
             tarefa_id:responsetasksbefore.body[0].id
         });
         const responsetasksafter = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -273,7 +273,7 @@ describe("Testar as rotas das tarefas",()=>{
     });
     it("Mudar título da lista",async()=>{
         const responselisttasksbefore = await supertest(app).
-        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             usuario_id : usuario.id
         });
@@ -284,13 +284,13 @@ describe("Testar as rotas das tarefas",()=>{
             lista_tarefa_id:responselisttasksbefore.body[0].id
         });
         const responsetasksafter = await supertest(app).
-        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             usuario_id : usuario.id
         });
         expect(responsetasksafter.body[0].nome).toBe("Outra lista")
     });
-    /*
+    
     it("Deletar todas as tarefa",async()=>{
         const response1 = await supertest(app).
         delete("/delete/all/task").set("authorization",`Bearer ${usuarioToken}`).
@@ -299,7 +299,7 @@ describe("Testar as rotas das tarefas",()=>{
         });
         expect(response1.status).toBe(200);
         const response2 = await supertest(app).
-        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             lista_tarefa_id:tarefas[0].id
         });
@@ -315,7 +315,7 @@ describe("Testar as rotas das tarefas",()=>{
             usuario_id : usuario.id
         });
         const responseselectlist = await supertest(app).
-        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             usuario_id : usuario.id
         });
@@ -353,7 +353,7 @@ describe("Testar as rotas das tarefas",()=>{
         expect(responsedeletetask1.status).toBe(200);
         //Verificar se a lista que sobrou foi a outra
         const responseselectlist2 = await supertest(app).
-        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             usuario_id : usuario.id
         });
@@ -368,7 +368,7 @@ describe("Testar as rotas das tarefas",()=>{
             usuario_id : usuario.id
         });
         const responseselectlist = await supertest(app).
-        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             usuario_id : usuario.id
         });
@@ -408,14 +408,14 @@ describe("Testar as rotas das tarefas",()=>{
 
         //Ver se a lista está vazia
         const responseselectlist2 = await supertest(app).
-        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        post("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
         send({
             usuario_id : usuario.id
         });
         expect((responseselectlist2.body as any[]).length).toBe(0);
-    });*/
+    });
 });
-/*
+
 describe("Testar erro de acesso",()=>{
     it("Erro ao fazer login com senha errada", async()=>{
         const response = await supertest(app)
@@ -468,4 +468,4 @@ describe("Testar erro de acesso",()=>{
         expect(responseacao.status).toBe(401);
         //expect(responseacao.body.Erro).toBe("Usuario errado");
     });
-});*/
+});
