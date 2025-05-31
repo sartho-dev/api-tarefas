@@ -12,6 +12,7 @@ import { updateTaskTitulo } from "../service/task/update/update-task-titulo";
 import { updateTaskDescription } from "../service/task/update/update-task-description";
 import { updateTaskPriority } from "../service/task/update/update-task-priority";
 import { updateTaskDate } from "../service/task/update/update-task-date";
+import { updateTaskConcluida } from "../service/task/update/update-task-concluida";
 
 export class TaskController {
   static async createTask(req: Request, res: Response) {
@@ -224,7 +225,7 @@ export class TaskController {
     try{
       const date = new Date(req.body.data_tarefa);
       const tarefa_id = req.body.tarefa_id;
-      console.log(date)
+      
       await updateTaskDate(date, tarefa_id);
       res.status(200).json({
         Message: `Data alterada para ${date}`
@@ -233,6 +234,24 @@ export class TaskController {
     } catch (error){
       res.status(500).json({
         Erro: "Erro ao mudar data",
+      });
+
+    }
+  }
+
+  static async updateConcluida(req: Request, res: Response) {
+    try{
+      const concluida = req.body.concluida === 'true' || req.body.concluida === true;
+      const tarefa_id = req.body.tarefa_id;
+      
+      await updateTaskConcluida(concluida, tarefa_id);
+      res.status(200).json({
+        Message: `Status de concluido da tarefa alterada`
+      });
+
+    } catch (error){
+      res.status(500).json({
+        Erro: "Erro ao mudar status de concluido",
       });
 
     }

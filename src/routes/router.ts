@@ -41,7 +41,7 @@ router.get("/select/task/data", autenticarToken, TaskController.listTaskByData)
 router.get("/select/task/alf", autenticarToken, TaskController.listTaskByAlf)
 
 //Rotas de tarefa update
-
+router.patch("/update/task/concluida", autenticarToken, TaskController.updateConcluida);
 router.patch("/update/task/title", autenticarToken, TaskController.updateTitulo);
 
 router.patch("/update/task/description", autenticarToken, TaskController.updateDescription);
