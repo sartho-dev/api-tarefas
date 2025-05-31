@@ -220,6 +220,38 @@ describe("Testar as rotas das tarefas",()=>{
         });
         expect(responsepriority.status).toBe(406);
     });
+    it("Mudar status de concluida",async()=>{
+        const responsetasksbefore = await supertest(app).
+        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            lista_tarefa_id:tarefas[0].id
+        });
+        const responseconcluida = await supertest(app).
+        patch("/update/task/concluida").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            concluida:false,
+            tarefa_id:responsetasksbefore.body[0].id
+        });
+        expect(responseconcluida.status).toBe(200);
+        const responsetasksafter = await supertest(app).
+        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            lista_tarefa_id:tarefas[0].id
+        });
+        expect(responsetasksafter.body[0].concluida).toBe(false)
+        const responseconcluida2 = await supertest(app).
+        patch("/update/task/concluida").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            concluida:true,
+            tarefa_id:responsetasksbefore.body[0].id
+        });
+        const responsetasksafter2 = await supertest(app).
+        get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            lista_tarefa_id:tarefas[0].id
+        });
+        expect(responsetasksafter2.body[0].concluida).toBe(true)
+    });
     it("Mudar data",async()=>{
         const responsetasksbefore = await supertest(app).
         get("/select/all/task").set("authorization",`Bearer ${usuarioToken}`).
@@ -238,6 +270,25 @@ describe("Testar as rotas das tarefas",()=>{
             lista_tarefa_id:tarefas[0].id
         });
         expect((responsetasksafter.body[0].data_tarefa as string).split("T")[0]).toBe("2023-06-25")
+    });
+    it("Mudar título da lista",async()=>{
+        const responselisttasksbefore = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        const responsetitulo = await supertest(app).
+        patch("/update/list/task/title").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            nome:"Outra lista",
+            lista_tarefa_id:responselisttasksbefore.body[0].id
+        });
+        const responsetasksafter = await supertest(app).
+        get("/select/list/task").set("authorization",`Bearer ${usuarioToken}`).
+        send({
+            usuario_id : usuario.id
+        });
+        expect(responsetasksafter.body[0].nome).toBe("Outra lista")
     });
     /*
     it("Deletar todas as tarefa",async()=>{

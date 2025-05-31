@@ -41,7 +41,7 @@ router.get("/select/task/data/:lista_tarefa_id", autenticarToken, TaskController
 router.get("/select/task/alf/:lista_tarefa_id", autenticarToken, TaskController.listTaskByAlf)
 
 //Rotas de tarefa update
-
+router.patch("/update/task/concluida", autenticarToken, TaskController.updateConcluida);
 router.patch("/update/task/title", autenticarToken, TaskController.updateTitulo);
 
 router.patch("/update/task/description", autenticarToken, TaskController.updateDescription);
@@ -65,7 +65,7 @@ router.delete("/delete/one/list/task", autenticarToken, ListTaskController.delet
 
 router.delete("/delete/all/list/task", autenticarToken, ListTaskController.deleteAllListTask);
 
-
+router.patch("/update/list/task/title", autenticarToken, ListTaskController.updateListaTitulo);
 
 /*TODO: Falar com o front.
 router.put("/update/task", autenticarToken, taskController.updateTask);
