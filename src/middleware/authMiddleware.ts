@@ -95,7 +95,7 @@ export async function autenticarToken(
     next();
   } catch (error) {
     res.status(500).json({
-      Erro: "SAFADO",
+      Erro: "Erro no middleware",
     });
     return;
   }
