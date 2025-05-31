@@ -46,8 +46,8 @@ export async function autenticarToken(
 
     //TODO: Adicionar verificaçõpes de usuário com conteúdo do req.body
 
-    if (req.body.usuario_id) {
-      if (req.body.usuario_id != id) {
+    if (req.query.usuario_id) {
+      if (Number(req.query.usuario_id)!= id) {
         res.status(401).json({
           Erro: "Não autorizado",
         });
@@ -56,7 +56,7 @@ export async function autenticarToken(
     }
 
     if (Number(req.query.lista_tarefa_id)) {
-      const usuario_id = await selectUserIdfromList(req.body.lista_tarefa_id);
+      const usuario_id = await selectUserIdfromList(Number(req.query.lista_tarefa_id));
 
       if (id != usuario_id) {
         res.status(401).json({
@@ -66,9 +66,9 @@ export async function autenticarToken(
       }
     }
 
-    if (req.body.tarefa_id) {
+    if (req.query.tarefa_id) {
 
-      const idListaTarefa = await selectIdfromListaTarefaId(req.body.tarefa_id);
+      const idListaTarefa = await selectIdfromListaTarefaId(Number(req.query.tarefa_id));
 
       const usuarioId = await selectUserIdfromList(idListaTarefa);
 
