@@ -83,7 +83,13 @@ export async function autenticarToken(
     }
     
 
-  
+    if (req.body?.prioridade) {
+      const prioridadesValidas = ["Alta", "Media", "Baixa"];
+      if (!prioridadesValidas.includes(req.body.prioridade)) {
+        res.status(406).json({ Erro: "Prioridade inválida" });
+        return
+      }
+    }
     
 
     next();
