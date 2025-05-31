@@ -98,7 +98,7 @@ export class TaskController {
   }
   static async listAllTask(req: Request, res: Response) {
     try {
-      const lista_tarefa_id = Number(req.params.lista_tarefa_id);
+      const lista_tarefa_id = Number(req.query.lista_tarefa_id);
 
       const tarefas = await listTask(lista_tarefa_id);
 
