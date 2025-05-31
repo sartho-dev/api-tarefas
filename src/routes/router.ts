@@ -57,7 +57,7 @@ router.post(
   ListTaskController.createListTask
 );
 
-router.get("/select/list/task/:usuario_id", autenticarToken, ListTaskController.listTask);
+router.get("/select/list/task", autenticarToken, ListTaskController.listTask);
 
 router.get("/select/all/task", autenticarToken, TaskController.listAllTask);
 

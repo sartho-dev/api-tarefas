@@ -41,7 +41,7 @@ export class ListTaskController {
     try {
       
       
-      const usuario_id  = req.params.usuario_id
+      const usuario_id  = req.query.usuario_id
 
       const listUser = await selectListUser(Number(usuario_id));
 
@@ -50,6 +50,7 @@ export class ListTaskController {
     } catch (error) {
       res.status(500).json({
         Erro: "Erro ao selecionar as listas de usuario",
+       
       });
     }
   }
